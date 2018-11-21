@@ -1,0 +1,46 @@
+connection.php
+=========================================================================================================================================
+<?php  
+       $con=mysqli_connect("localhost","id7917306_test","7783859947","id7917306_test");
+	   if(!$con){
+		   echo "not connected";
+	   }else{
+		   echo " connected.....";
+	   }
+		
+?>  
+--------------------------------------------------------------------------------------------------------------------------------------------
+process.php
+==========================================================================================================================================
+<?php include 'connection.php';?>
+<?php
+
+
+$sql = "INSERT INTO student (firstname, lastname) VALUES ('$_POST[firstname]','$_POST[lastname]')";
+if (mysqli_query($con, $sql)) {
+      echo "New record added successfully";
+} else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($con);
+}
+mysqli_close($con);
+
+?>
+-------------------------------------------------------------------------------------------------------------------------------------------
+show.php
+===========================================================================================================================================
+<?php include 'connection.php';?>
+<?php
+
+$sql = "SELECT id, firstname, lastname FROM student";
+$result = $con->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+----------------------------------------------------------------------------------------------------------------------------------------
